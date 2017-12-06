@@ -62,7 +62,7 @@ public class LopHocPhan {
 		
 		if(soSVHienTai < soSVMax) {
 			this.dsSinhVien.add(sv);
-			soSVHienTai++;
+			soSVHienTai = dsSinhVien.size();
 			return true;
 		}else {
 			return false;
@@ -85,6 +85,7 @@ public class LopHocPhan {
 		for(int i = 0; i < dsSinhVien.size(); i++) {
 			if(dsSinhVien.get(i).getIdSinhVien().equals(idSinhVien)) {
 				dsSinhVien.remove(i);
+				soSVHienTai = dsSinhVien.size();
 				return true;
 			}
 		}
