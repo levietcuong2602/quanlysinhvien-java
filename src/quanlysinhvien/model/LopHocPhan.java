@@ -62,8 +62,7 @@ public class LopHocPhan {
 		
 		if(soSVHienTai < soSVMax) {
 			this.dsSinhVien.add(sv);
-			soSVHienTai = dsSinhVien.size();
-			System.out.println("add ok");
+			soSVHienTai++;
 			return true;
 		}else {
 			return false;
@@ -84,10 +83,8 @@ public class LopHocPhan {
 
 	public boolean xoaSinhVien(String idSinhVien) {
 		for(int i = 0; i < dsSinhVien.size(); i++) {
-			if(dsSinhVien.get(i).getIdSinhVien().equalsIgnoreCase(idSinhVien)) {
+			if(dsSinhVien.get(i).getIdSinhVien().equals(idSinhVien)) {
 				dsSinhVien.remove(i);
-				System.out.println("sub ok");
-				soSVHienTai = dsSinhVien.size();
 				return true;
 			}
 		}

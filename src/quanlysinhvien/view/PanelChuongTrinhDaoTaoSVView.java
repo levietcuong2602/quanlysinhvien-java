@@ -4,11 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,29 +16,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import quanlysinhvien.model.DiemHocPhan;
 
 public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 	private JTextField tfIdSinhVien, tfIdHP, tfTenHP, tfKyHoc, tfTinChi, tfDiemChu, tfDiemSo, tfVien_Khoa;
 	private JTable table;
 	private String[] titleCols = {"Mã HP", "Tên HP", "Kỳ học", "Tín chỉ", "Điểm chữ", "Điểm số", "Viện/Khoa"};
-	
-	private DefaultTableModel tableModel = new DefaultTableModel();
-	
-	//tạo danh sách điểm
-	private ArrayList<DiemHocPhan> dsDiem;
-	
-	//load dữ liệu vào mảng
-	private String[][] Data;
-	
 	
 	public PanelChuongTrinhDaoTaoSVView() {
 		setLayout(new BorderLayout(15, 15));
@@ -57,7 +35,7 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 		JLabel label = new JLabel("Các môn trong chương trình đào tạo của sinh viên");
 		label.setFont(new Font("Caribli", Font.BOLD, 18));
 		label.setForeground(Color.YELLOW);
-		label.setIcon(new ImageIcon(this.getClass().getResource("/list.png")));
+		label.setIcon(new ImageIcon("images/list.png"));
 		panel.add(label);
 		panel.setBackground(new Color(0x009999));
 		
@@ -78,7 +56,7 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 		panel.setBorder(new EmptyBorder(0, 0, 0, 900));
 		panel.add(createLabel("Mã sinh viên:", 16), BorderLayout.WEST);
 		panel.add(tfIdSinhVien = new JTextField(20), BorderLayout.CENTER);
-		tfIdSinhVien.setText("20150001");
+		tfIdSinhVien.setText("20153752");
 		tfIdSinhVien.setEditable(false);
 		
 		return panel;
@@ -102,97 +80,24 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 	private JPanel createTable() {
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
 		table = new JTable();
-		loadData(table);
 		JScrollPane scroll = new JScrollPane(table);
 		panel.add(scroll, BorderLayout.CENTER);
 		JPanel panelB = new JPanel(new GridLayout(1, 7, 5, 5));
-		
 		tfIdHP = new JTextField();
 		panelB.add(createtfTimKiem(tfIdHP));
-		
 		tfTenHP = new JTextField();
 		panelB.add(createtfTimKiem(tfTenHP));
-		
 		tfKyHoc = new JTextField();
 		panelB.add(createtfTimKiem(tfKyHoc));
-		
 		tfTinChi = new JTextField();
 		panelB.add(createtfTimKiem(tfTinChi));
-		
 		tfDiemChu = new JTextField();
 		panelB.add(createtfTimKiem(tfDiemChu));
-		
 		tfDiemSo = new JTextField();
 		panelB.add(createtfTimKiem(tfDiemSo));
-		
 		tfVien_Khoa = new JTextField();
 		panelB.add(createtfTimKiem(tfVien_Khoa));
-		
 		panel.add(panelB, BorderLayout.SOUTH);
-		
-		//keylistener
-		tfIdHP.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfIdHP.getText(), 0));
-				}
-			}
-		});
-		
-		tfTenHP.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfTenHP.getText(), 1));
-				}
-			}
-		});
-		
-		tfKyHoc.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfKyHoc.getText(), 2));
-				}
-			}
-		});
-		
-		tfTinChi.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfTinChi.getText(), 3));
-				}
-			}
-		});
-		
-		tfDiemChu.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfDiemChu.getText(), 4));
-				}
-			}
-		});
-		
-		tfDiemSo.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfDiemSo.getText(), 5));
-				}
-			}
-		});
-		
-		tfVien_Khoa.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					LoadKetQuaTimKiem(KetQuaTimKiem(tfVien_Khoa.getText(), 6));
-				}
-			}
-		});
 		
 		return panel;
 	}
@@ -201,7 +106,7 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 		JPanel panel = new JPanel(new BorderLayout(0, 0));
 		panel.add(tf, BorderLayout.CENTER);
 		
-		panel.add(new JLabel(new ImageIcon(this.getClass().getResource("/key.png"))), BorderLayout.EAST);
+		panel.add(new JLabel(new ImageIcon("/key.png")), BorderLayout.EAST);
 		return panel;
 	}
 	
@@ -212,11 +117,11 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 		return lb;
 	}
 	
-	private void loadData(JTable table) {
+	public void loadData(JTable table, ArrayList<DiemHocPhan> dsDiem, String[] vienKhoa, String timKiem, String giaTri) {
 		SwingUtilities.invokeLater(new Runnable(){public void run(){
-			String data[][] = null;
+			String data[][] = convertData(dsDiem, vienKhoa, timKiem,  giaTri);
 		    //Update the model here
-			tableModel = new DefaultTableModel(data, titleCols) {
+			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
 					// TODO Auto-generated method stub
@@ -224,161 +129,218 @@ public class PanelChuongTrinhDaoTaoSVView extends JPanel{
 				}
 			};
 			table.setModel(tableModel);
-			
-			//load Table data
-			try {
-				LoadDSDiem();
-				
-				for (int i = 0; i < dsDiem.size(); i++) {
-					String[] rows  = new String[7];
-					
-					rows[0] = dsDiem.get(i).getIdHocPhan();
-					rows[1] = dsDiem.get(i).getTenHP();
-					rows[2] = dsDiem.get(i).getHocKy();
-					rows[3] = Double.toString(dsDiem.get(i).getTinChi());
-					rows[4] = dsDiem.get(i).getDiemChu();
-					rows[5] = Double.toString(dsDiem.get(i).getDiemThang4());
-					rows[6] = "null";
-//					rows[6] = dsDiem.get(i).getVienKhoa();
-					tableModel.addRow(rows);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			table.getColumnModel().getColumn(1).setPreferredWidth(200);
 		}});
 	}
 	
-	private void LoadDSDiem() throws IOException {
-		
-		dsDiem = new ArrayList<DiemHocPhan>();
-		
-		File file = new File ("quanlysinhvien/sinhvientinchi/SV001/diem.xlsx");
-		
-		FileInputStream inputStream = new FileInputStream(file);
-		
-		Workbook workbook = new XSSFWorkbook(inputStream);
-		Sheet sheet = workbook.getSheetAt(0);
-		
-		int rowCount = sheet.getLastRowNum();
-		
-		for (int i = 1; i <= rowCount; i++) {
-			
-			DiemHocPhan diem = new DiemHocPhan();
-			
-			Row row = sheet.getRow(i);
-			Cell cell;
-			
-			cell = row.getCell(1);
-			diem.setHocKy(cell.getStringCellValue());
-			
-			cell = row.getCell(2);
-			diem.setIdHocPhan(cell.getStringCellValue());
-			
-			cell = row.getCell(3);
-			diem.setTenHP(cell.getStringCellValue());
-			
-			cell = row.getCell(4);
-			diem.setTinChi((int) cell.getNumericCellValue());
-			
-			//lop hoc
-			cell = row.getCell(5);
-			
-			
-			cell = row.getCell(6);
-			diem.setDiemQT((double) cell.getNumericCellValue());
-			
-			cell = row.getCell(7);
-			diem.setDiemThi((double) cell.getNumericCellValue());
-			
-			cell = row.getCell(8);
-			diem.setDiemChu(cell.getStringCellValue());
-			
-			switch (diem.getDiemChu()) {
-			case "A+":
-				diem.setDiemThang4(4);
+	private String[][] convertData(ArrayList<DiemHocPhan> dsDiem, String[] vienKhoa, String timKiem, String giaTri) {
+		String[][] data = new String[dsDiem.size()][7];
+		int index = 0;
+		int size = dsDiem.size();
+		for (int i = 0; i < size; i++) {
+			switch(timKiem) {
+			case "idHP":
+				if(dsDiem.get(i).getIdHocPhan().toLowerCase().indexOf(giaTri) >= 0) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "A":
-				diem.setDiemThang4(4);
+			case "tenHP":
+				if(dsDiem.get(i).getTenHP().toLowerCase().indexOf(giaTri) >= 0) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "B+":
-				diem.setDiemThang4(3.5);
+			case "hocKy":
+				if(Integer.parseInt(dsDiem.get(i).getHocKy()) == Integer.parseInt(giaTri)) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "B":
-				diem.setDiemThang4(3);
+			case "tinChi":
+				if(dsDiem.get(i).getTinChi() == Integer.parseInt(giaTri)) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "C+":
-				diem.setDiemThang4(2.5);
+			case "diemChu":
+				if(dsDiem.get(i).getDiemChu().toLowerCase().indexOf(giaTri) >= 0) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "C":
-				diem.setDiemThang4(2);
+			case "diem4":
+				if(dsDiem.get(i).getIdHocPhan().toLowerCase().indexOf(giaTri) >= 0) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "D+":
-				diem.setDiemThang4(1.5);
+			case "vienKhoa":
+				if(vienKhoa[i].toLowerCase().indexOf(giaTri) >= 0) {
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
-			case "D":
-				diem.setDiemThang4(1);
-				break;
-			case "F":
-				diem.setDiemThang4(0);
-				break;
-
-			default:
+			case "":
+				{
+					data[index][0] = dsDiem.get(i).getIdHocPhan();
+					data[index][1] = dsDiem.get(i).getTenHP();
+					data[index][2] = dsDiem.get(i).getHocKy();
+					data[index][3] = dsDiem.get(i).getTinChi()+"";
+					data[index][4] = dsDiem.get(i).getDiemChu();
+					double diem4 = dsDiem.get(i).getDiemThang4();
+					if(diem4 == 0.0) data[index][5] = "";
+					else data[index][5] = diem4 + "";
+					data[index][6] = vienKhoa[i];
+					index++;
+				}
 				break;
 			}
 			
-//			diem.setVienKhoa("");
-			
-			dsDiem.add(diem);
 		}
 		
-		workbook.close();
-		inputStream.close();
-		
-		LoadDataIntoPiece();
-	}
-	
-	
-	
-	private void LoadDataIntoPiece() {
-		Data = new String[dsDiem.size()][7];
-		for (int i = 0; i < Data.length; i++) {
-			Data[i][0] = dsDiem.get(i).getIdHocPhan();
-			Data[i][1] = dsDiem.get(i).getTenHP();
-			Data[i][2] = dsDiem.get(i).getHocKy();
-			Data[i][3] = Double.toString(dsDiem.get(i).getTinChi());
-			Data[i][4] = dsDiem.get(i).getDiemChu();
-			Data[i][5] = Double.toString(dsDiem.get(i).getDiemThang4());
-			Data[i][6] = "null";
-		}		
-	}
-	
-	private void LoadKetQuaTimKiem(ArrayList<DiemHocPhan> kq) {
-		tableModel.setRowCount(0);
-		for (int i = 0; i < kq.size(); i++) {
-			String[] rows  = new String[7];
-			
-			rows[0] = kq.get(i).getIdHocPhan();
-			rows[1] = kq.get(i).getTenHP();
-			rows[2] = kq.get(i).getHocKy();
-			rows[3] = Double.toString(kq.get(i).getTinChi());
-			rows[4] = kq.get(i).getDiemChu();
-			rows[5] = Double.toString(kq.get(i).getDiemThang4());
-			rows[6] = "null";
-			tableModel.addRow(rows);
-		}
-	}
-	
-	private ArrayList<DiemHocPhan> KetQuaTimKiem(String strTimKiem, int j) {
-		ArrayList<DiemHocPhan> result = new ArrayList<DiemHocPhan>();
-		LoadDataIntoPiece();
-		strTimKiem = strTimKiem.toLowerCase();
-		for (int i = 0; i < Data.length; i++) {
-			String str = Data[i][j].toLowerCase();
-			if (str.indexOf(strTimKiem) > -1)
-				result.add(dsDiem.get(i));
+		if(index < size) {
+			String[][] data1 = new String[index][7];
+			for(int i = 0; i < index; i++) {
+				data1[i][0] = data[i][0];
+				data1[i][1] = data[i][1];
+				data1[i][2] = data[i][2];
+				data1[i][3] = data[i][3];
+				data1[i][4] = data[i][4];
+				data1[i][5] = data[i][5];
+				data1[i][6] = data[i][6];
+			}
+			return data1;
 		}
 		
-		return result;
+		return data;
+	}
+	
+	public JTextField getTfIdSinhVien() {
+		return tfIdSinhVien;
+	}
+
+	public void setTfIdSinhVien(JTextField tfIdSinhVien) {
+		this.tfIdSinhVien = tfIdSinhVien;
+	}
+
+	public JTextField getTfIdHP() {
+		return tfIdHP;
+	}
+
+	public void setTfIdHP(JTextField tfIdHP) {
+		this.tfIdHP = tfIdHP;
+	}
+
+	public JTextField getTfTenHP() {
+		return tfTenHP;
+	}
+
+	public void setTfTenHP(JTextField tfTenHP) {
+		this.tfTenHP = tfTenHP;
+	}
+
+	public JTextField getTfKyHoc() {
+		return tfKyHoc;
+	}
+
+	public void setTfKyHoc(JTextField tfKyHoc) {
+		this.tfKyHoc = tfKyHoc;
+	}
+
+	public JTextField getTfTinChi() {
+		return tfTinChi;
+	}
+
+	public void setTfTinChi(JTextField tfTinChi) {
+		this.tfTinChi = tfTinChi;
+	}
+
+	public JTextField getTfDiemChu() {
+		return tfDiemChu;
+	}
+
+	public void setTfDiemChu(JTextField tfDiemChu) {
+		this.tfDiemChu = tfDiemChu;
+	}
+
+	public JTextField getTfDiemSo() {
+		return tfDiemSo;
+	}
+
+	public void setTfDiemSo(JTextField tfDiemSo) {
+		this.tfDiemSo = tfDiemSo;
+	}
+
+	public JTextField getTfVien_Khoa() {
+		return tfVien_Khoa;
+	}
+
+	public void setTfVien_Khoa(JTextField tfVien_Khoa) {
+		this.tfVien_Khoa = tfVien_Khoa;
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
 	}
 }

@@ -183,10 +183,10 @@ public class Login extends JFrame {
 				mainQL = new MainQuanLy();
 				btnDangXuat = mainQL.getBtnLogout();
 			}else if(this.tk.getLoaiTK().equals("svtc")) {
-				mainSVTC = new MainSinhVienTC(tk);
+				mainSVTC = new MainSinhVienTC(this.tk);
 				btnDangXuat = mainSVTC.getBtnLogout();
 			}else if(this.tk.getLoaiTK().equals("svnc")) {
-				mainSVNC = new MainSinhVienNC(tk);
+				mainSVNC = new MainSinhVienNC(this.tk);
 				btnDangXuat = mainSVNC.getBtnLogout();
 			}
 			btnDangXuat.addActionListener(new ActionListener() {

@@ -14,14 +14,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import quanlysinhvien.controller.BangDiemCaNhanController;
+import quanlysinhvien.controller.BangDiemHocPhanController;
+import quanlysinhvien.controller.ChuongTrinhDaoTaoSVController;
 import quanlysinhvien.controller.DangKiHocPhanController;
 import quanlysinhvien.controller.DangKiLopHocController;
 import quanlysinhvien.controller.DangKiTotNghiepController;
+import quanlysinhvien.controller.DanhMucHPController;
 import quanlysinhvien.controller.DoiMatKhauController;
+import quanlysinhvien.controller.ThoiKhoaBieuController;
+import quanlysinhvien.controller.ThongTinCaNhanController;
 import quanlysinhvien.model.TaiKhoan;
 import quanlysinhvien.view.PanelBangDiemCaNhanView;
 import quanlysinhvien.view.PanelBangDiemHocPhanView;
@@ -44,6 +48,9 @@ public class MainSinhVienTC extends JFrame implements ActionListener{
 	private Container conter;
 	private JPanel mainPanel;
 	private JButton btnLogout;
+	
+	
+	
 	
 	private PanelHeThongView heThong;
 	
@@ -74,21 +81,28 @@ public class MainSinhVienTC extends JFrame implements ActionListener{
 		new DoiMatKhauController(doiMatKhau, tk);
 		
 		mainPanel.add(tkb = new PanelTKBView(), "tkb");
+		new ThoiKhoaBieuController(tkb, "quanlysinhvien\\sinhvientinchi\\" + tk.getTaiKhoan() + "\\dsLopHocDangKy.xlsx");
 		
 		mainPanel.add(thongTinCaNhan = new PanelThongTinCaNhanView(), "thongTinCaNhan");
+		new ThongTinCaNhanController(thongTinCaNhan, tk);
 		
 		mainPanel.add(danhMucHP = new PanelDanhMucHP(), "danhMucHP");
+		new DanhMucHPController(danhMucHP);
 		mainPanel.add(chuongTrinhDaoTaoSV = new PanelChuongTrinhDaoTaoSVView(), "chuongTrinhDaoTaoSV");
+		new ChuongTrinhDaoTaoSVController(chuongTrinhDaoTaoSV, tk);
 		
 		mainPanel.add(bangDiemCaNhan = new PanelBangDiemCaNhanView(), "bangDiemCaNhan");
+		new BangDiemCaNhanController(bangDiemCaNhan, tk);
 		mainPanel.add(bangDiemHP = new PanelBangDiemHocPhanView(), "bangDiemHP");
+		new BangDiemHocPhanController(bangDiemHP, tk.getTaiKhoan(), "svtc");
 		
 		mainPanel.add(dangKyHP = new PanelDangKiHocPhanView(), "dangKyHP");
 		new DangKiHocPhanController(dangKyHP, tk.getTaiKhoan());
 		mainPanel.add(dangKyLopHoc = new PanelDangKiLopHocView(), "dangKyLopHoc");
 		new DangKiLopHocController(dangKyLopHoc, tk.getTaiKhoan());
 		mainPanel.add(dangKyTotNghiep = new PanelDangKiTotNghiepView(), "dangKyTN");
-		new DangKiTotNghiepController(dangKyTotNghiep, tk.getTaiKhoan());
+		new DangKiTotNghiepController(dangKyTotNghiep, tk);
+		
 		conter.setLayout(new BorderLayout(0, 0));
 		conter.add(createHeaderPanel(), BorderLayout.NORTH);
 		conter.add(mainPanel, BorderLayout.CENTER);

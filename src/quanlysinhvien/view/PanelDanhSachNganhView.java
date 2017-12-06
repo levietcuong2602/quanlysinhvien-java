@@ -70,9 +70,9 @@ public class PanelDanhSachNganhView extends JPanel{
 	}
 	
 	private JPanel createInputPanel() {
-		JPanel panel = new JPanel(new GridLayout(1, 2, 10, 10));
-		panel.add(createInputLeftPanel());
-		panel.add(createInputRightPanel());
+		JPanel panel = new JPanel(new BorderLayout(10, 5));
+		panel.add(createInputLeftPanel(), BorderLayout.WEST);
+		panel.add(createInputRightPanel(), BorderLayout.CENTER);
 		
 		return panel;
 	}
@@ -120,10 +120,8 @@ public class PanelDanhSachNganhView extends JPanel{
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
 		JPanel panelL = new JPanel(new GridLayout(2, 1, 10, 10));
 		panelL.add(new JLabel("Mã Khoa/Viện:"));
-		panelL.add(new JLabel(""));
 		JPanel panelR = new JPanel(new GridLayout(2, 1, 10, 10));
-		panelR.add(tfIdKhoa_Vien = new JTextField());
-		panelR.add(new JLabel(""));
+		panelR.add(tfIdKhoa_Vien = new JTextField(7));
 		
 		panel.add(panelL, BorderLayout.WEST);
 		panel.add(panelR, BorderLayout.CENTER);

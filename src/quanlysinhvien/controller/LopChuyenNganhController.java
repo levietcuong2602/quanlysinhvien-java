@@ -252,7 +252,7 @@ public class LopChuyenNganhController {
 						}
 					}
 				}
-				new CapNhatSinhVienController(capNhatSV, dsSinhVien, "quanlysinhvien\\danhsachchuyennganh\\lopchuyennganh\\" + idLop + "_dsSV.xlsx", tenLop);
+				new CapNhatSinhVienController(capNhatSV, dsSinhVien, "quanlysinhvien\\danhsachchuyennganh\\lopchuyennganh\\" + idLop + "_dsSV.xlsx", tenLop, null);
 			}
 		});
 	}
@@ -293,10 +293,9 @@ public class LopChuyenNganhController {
 				ArrayList<SinhVien> dsSinhVien;
 				try {
 					dsSinhVien = getDSSinhVien(dataLopCN.get(0));
-					System.out.println("dssv");
 				}catch(Exception exc) {
 					dsSinhVien = new ArrayList<>();
-					System.out.println("Error: " + exc);
+					System.out.println("Error loadDSSVLopCN: " + exc);
 				}
 				LopChuyenNganh lopChuyenNganh = new LopChuyenNganh(dsSinhVien, dataLopCN.get(0), dataLopCN.get(1), dataLopCN.get(2), dataLopCN.get(3), dataLopCN.get(4));
 				dsLopCN.add(lopChuyenNganh);

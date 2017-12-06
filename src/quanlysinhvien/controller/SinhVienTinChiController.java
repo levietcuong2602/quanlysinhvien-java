@@ -2,10 +2,6 @@ package quanlysinhvien.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -33,8 +29,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import quanlysinhvien.model.DiemHocPhan;
-import quanlysinhvien.model.SinhVien;
 import quanlysinhvien.model.SinhVienNienChe;
 import quanlysinhvien.model.SinhVienTinChi;
 import quanlysinhvien.model.TaiKhoan;
@@ -344,9 +338,9 @@ public class SinhVienTinChiController {
 		tfEmail.setText("");
 		tfSoDT.setText("");
 		tfDiaChi.setText("");
-		tfDiemTB.setText("");
-		tfSoTCQua.setText("");
-		tfSoTCNo.setText("");
+		tfDiemTB.setText("0.0");
+		tfSoTCQua.setText("0");
+		tfSoTCNo.setText("0");
 		tfTimKiem.setText("");
 		bg.clearSelection();
 	}
@@ -777,7 +771,6 @@ public class SinhVienTinChiController {
 						ck = true;
 					}
 				}
-				//hate you 
 				break;
 			}
 		}

@@ -3,15 +3,17 @@ package quanlysinhvien.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import quanlysinhvien.model.LopHocPhan;
 
 public class PanelTKBView extends JPanel{
 	private String titleCols[] = {"Thời gian", "Tuần học", "Phòng học", "Mã lớp", "Loại lớp", "Mã HP", "Tên lớp"};
@@ -41,7 +43,6 @@ public class PanelTKBView extends JPanel{
 	private JPanel createMainPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		table = new JTable();
-		loadData(table);
 		JScrollPane scroll = new JScrollPane(table);
 		panel.add(scroll);
 		
@@ -50,8 +51,7 @@ public class PanelTKBView extends JPanel{
 	
 	private JPanel createStatusPanel() {
 		JPanel panel = new JPanel();
-		labStatus = new JLabel("Sinh viên không có thời khóa biểu kì này");
-//		labStatus = new JLabel("");
+		labStatus = new JLabel("");
 		labStatus.setFont(new Font("Caribli", Font.BOLD, 16));
 		labStatus.setForeground(Color.BLUE);
 		panel.add(labStatus);
@@ -59,19 +59,36 @@ public class PanelTKBView extends JPanel{
 		return panel;
 	}
 	
-	private void loadData(JTable table) {
-		SwingUtilities.invokeLater(new Runnable(){public void run(){
-			String data[][] = null;
-		    //Update the model here
-			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					// TODO Auto-generated method stub
-					return false;
-				}
-			};
-			table.setModel(tableModel);		
-		}});
+	public void loadData(JTable table, ArrayList<LopHocPhan> dsLopHP) {
+		String[][] data = convertData(dsLopHP);
+		DefaultTableModel model = new DefaultTableModel(data, titleCols);
+		table.setModel(model);
+		table.getColumnModel().getColumn(6).setPreferredWidth(175);
+	}
+	
+	private String[][] convertData(ArrayList<LopHocPhan> dsLopHP){
+		int size = dsLopHP.size();
+		String data[][] = new String[size][titleCols.length];
+		for(int i = 0; i < size; i++) {
+			LopHocPhan lopHP = dsLopHP.get(i);
+			data[i][0] = lopHP.getThoiGian();
+			data[i][1] = lopHP.getTuanHoc();
+			data[i][2] = lopHP.getPhongHoc();
+			data[i][3] = lopHP.getIdLop();
+			data[i][4] = lopHP.getLoaiLop();
+			data[i][5] = lopHP.getIdHocPhan();
+			data[i][6] = lopHP.getTenLop();
+		}
+		
+		return data;
+	}
+	
+	public JTable getTable() {
+		return table;
+	}
+
+	public JLabel getLabStatus() {
+		return labStatus;
 	}
 	
 }

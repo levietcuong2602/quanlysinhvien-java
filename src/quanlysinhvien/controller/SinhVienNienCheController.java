@@ -406,8 +406,8 @@ public class SinhVienNienCheController {
 		tfEmail.setText("");
 		tfSoDT.setText("");
 		tfDiaChi.setText("");
-		tfTongSoKy.setText("");
-		tfDiemTB.setText("");
+		tfTongSoKy.setText("0");
+		tfDiemTB.setText("0.0");
 		tfTimKiem.setText("");
 	}
 	

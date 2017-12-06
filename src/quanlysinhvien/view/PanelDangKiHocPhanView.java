@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Label;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,7 +22,7 @@ public class PanelDangKiHocPhanView extends JPanel{
 	private String titleCols[] = {"Mã HP", "Tên lớp", "Ngày đăng ký", "TT đăng ký", "Số TC", "Select"};
 	private String hkVals[] = {"20171", "20172"};
 	private JComboBox<String> hocKy;
-	private JLabel lbStatus, gtThongTin, lbSum;
+	private JLabel gtThongTin, lbSum;
 	private JTextField tfDangky;
 	private JButton btnDangKy, btnXoaHP, btnGuiDangKy;
 	private JTable table;
@@ -64,14 +62,16 @@ public class PanelDangKiHocPhanView extends JPanel{
 		JPanel panel = new JPanel(new GridLayout(3, 1, 5, 5));
 		panel.setBorder(new EmptyBorder(0, 0, 0, 580));
 		JPanel panelS = new JPanel();
+		FlowLayout layoutS = (FlowLayout) panelS.getLayout();
+		layoutS.setAlignment(FlowLayout.LEFT);
 		panelS.setBorder(new EmptyBorder(0, 0, 0, 50));
 		panelS.add(createLabel("Học kỳ:", 16));
 		panelS.add(hocKy = new JComboBox<>(hkVals));
-		panelS.add(createLabel("Học chương trình:", 16));
-		panelS.add(createLabel("CT Nhóm ngành CNTT-TT 2-2015", 16));
 		panel.add(panelS);
 		
 		JPanel panelC = new JPanel();
+		FlowLayout layoutC = (FlowLayout) panelC.getLayout();
+		layoutC.setAlignment(FlowLayout.LEFT);
 		panelC.setBorder(new EmptyBorder(0, 0, 0, 164));
 		panelC.add(createLabel("Mã HP đăng ký:", 16));
 		panelC.add(tfDangky = new JTextField(15));
@@ -80,8 +80,8 @@ public class PanelDangKiHocPhanView extends JPanel{
 		
 		JPanel panelStatus = new JPanel(new BorderLayout());
 		panelStatus.setBorder(new EmptyBorder(0, 5, 0, 0));
-		panelStatus.add(lbStatus = new JLabel("không phải thời điểm đăng ký môn học của kỳ 20172"));
-		lbStatus.setForeground(Color.RED);
+//		panelStatus.add(lbStatus = new JLabel("không phải thời điểm đăng ký môn học của kỳ 20172"));
+//		lbStatus.setForeground(Color.RED);
 		panel.add(panelStatus);
 		
 		return panel;
@@ -90,7 +90,7 @@ public class PanelDangKiHocPhanView extends JPanel{
 	private JPanel createTablePanel() {
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
 		JPanel panelTitle = new JPanel();
-		panelTitle.add(createLabel("Bảng đăng ký học phần kỳ 20171 của sinh viên 20153752", 16));
+		panelTitle.add(createLabel("Bảng đăng ký học phần kỳ " + hocKy.getSelectedItem() + " của sinh viên 20153752", 16));
 		panelTitle.setBackground(Color.LIGHT_GRAY);
 		panel.add(panelTitle, BorderLayout.NORTH);
 		

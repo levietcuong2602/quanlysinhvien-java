@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class PanelThongTinCaNhanView extends JPanel{
-	private JLabel lbIdSinhVien, lbHoTen, lbNgaySinh, lbLop, lbChuongTrinh, lbHeHoc, lbTrangThai;
-	private JLabel gtIdSinhVien, gtHoTen, gtNgaySinh, gtLop, gtChuongTring, gtHeHoc, gtTrangThai;
+	private JLabel lbIdSinhVien, lbHoTen, lbNgaySinh, lbLop, lbHeHoc, lbTrangThai;
+	private JLabel gtIdSinhVien, gtHoTen, gtNgaySinh, gtLop, gtHeHoc, gtTrangThai;
 	private JTextField tfEmail, tfSoDT, tfDiaChi;
 	private JButton btnCapNhat;
 	
@@ -52,15 +52,13 @@ public class PanelThongTinCaNhanView extends JPanel{
 		panelBL.add(lbHoTen = createLabel("Họ tên SV:", 0));
 		panelBL.add(lbNgaySinh = createLabel("Ngày Sinh:", 0));
 		panelBL.add(lbLop = createLabel("Lớp:", 0));
-		panelBL.add(lbChuongTrinh = createLabel("Chương trình:", 0));
 		panelBL.add(lbHeHoc = createLabel("Hệ học:", 0));
 		panelBL.add(lbTrangThai = createLabel("Trạng thái:", 0));
 		JPanel panelBR = new JPanel(new GridLayout(7, 1, 10, 10));
-		panelBR.add(gtIdSinhVien = createLabel("20153752", 1));
-		panelBR.add(gtHoTen = createLabel("Nguyễn Tài Tiêu", 1));
-		panelBR.add(gtNgaySinh = createLabel("27.10.1997", 1));
-		panelBR.add(gtLop = createLabel("CNTT2-1 K60", 1));
-		panelBR.add(gtChuongTring = createLabel("CT Nhóm ngành CNTT-TT 2-2015", 1));
+		panelBR.add(gtIdSinhVien = createLabel("", 1));
+		panelBR.add(gtHoTen = createLabel("", 1));
+		panelBR.add(gtNgaySinh = createLabel("", 1));
+		panelBR.add(gtLop = createLabel("", 1));
 		panelBR.add(gtHeHoc = createLabel("Đại học", 1));
 		panelBR.add(gtTrangThai = createLabel("Học", 1));
 		
@@ -120,6 +118,38 @@ public class PanelThongTinCaNhanView extends JPanel{
 		lab.setFont(new Font("Caribli", giatri, 16));
 		
 		return lab;
+	}
+
+	public JLabel getGtIdSinhVien() {
+		return gtIdSinhVien;
+	}
+
+	public JLabel getGtHoTen() {
+		return gtHoTen;
+	}
+
+	public JLabel getGtNgaySinh() {
+		return gtNgaySinh;
+	}
+
+	public JLabel getGtLop() {
+		return gtLop;
+	}
+
+	public JTextField getTfEmail() {
+		return tfEmail;
+	}
+
+	public JTextField getTfSoDT() {
+		return tfSoDT;
+	}
+
+	public JTextField getTfDiaChi() {
+		return tfDiaChi;
+	}
+
+	public JButton getBtnCapNhat() {
+		return btnCapNhat;
 	}
 	
 }

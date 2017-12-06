@@ -8,6 +8,8 @@ public class PhongDaoTao {
 	private ArrayList<Khoa_Vien> dsKhoa_Vien;
 	private ArrayList<LopChuyenNganh> dsLopChuyenNganh;
 	
+	
+	
 	public PhongDaoTao() {
 		this.dsHocPhan = new ArrayList<>();
 		this.dsLopHocPhan = new ArrayList<>();
@@ -22,7 +24,6 @@ public class PhongDaoTao {
 		this.dsLopChuyenNganh = dsLopChuyenNganh;
 	}
 
-	
 	
 	public ArrayList<HocPhan> getDsHocPhan() {
 		return dsHocPhan;

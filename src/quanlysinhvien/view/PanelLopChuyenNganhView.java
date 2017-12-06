@@ -154,6 +154,7 @@ public class PanelLopChuyenNganhView extends JPanel{
 		String[][] data = convertData(dsLopCN, timKiem, giaTri);
 		DefaultTableModel model = new DefaultTableModel(data, titleCols);
 		table.setModel(model);
+		table.getColumnModel().getColumn(4).setPreferredWidth(180);
 	}
 	
 	private String[][] convertData(ArrayList<LopChuyenNganh> list, String timKiem, String giaTri) {

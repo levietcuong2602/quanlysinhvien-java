@@ -173,6 +173,7 @@ public class PanelLopHocPhanView extends  JPanel{
 		table.getColumnModel().getColumn(4).setPreferredWidth(125);
 		table.getColumnModel().getColumn(5).setPreferredWidth(125);
 		table.getColumnModel().getColumn(8).setPreferredWidth(125);
+		table.getColumnModel().getColumn(10).setPreferredWidth(85);
 	}
 	
 	private String[][] convertData(ArrayList<LopHocPhan> dsLopHP, String timKiem, String giaTri) {

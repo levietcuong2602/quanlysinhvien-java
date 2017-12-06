@@ -163,6 +163,7 @@ public class PanelDanhSachHPView extends JPanel{
 		String[][] data = convertData(dsHP, timKiem, giaTri);
 		DefaultTableModel model = new DefaultTableModel(data, titleCols);
 		table.setModel(model);
+		table.getColumnModel().getColumn(1).setPreferredWidth(195);
 	}
 	
 	private String[][] convertData(ArrayList<HocPhan> list, String timKiem, String giaTri){

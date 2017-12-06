@@ -18,13 +18,22 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import quanlysinhvien.controller.BangDiemCaNhanController;
+import quanlysinhvien.controller.BangDiemHocPhanController;
+import quanlysinhvien.controller.ChuongTrinhDaoTaoSVController;
+import quanlysinhvien.controller.DangKiTotNghiepController;
+import quanlysinhvien.controller.DanhMucHPController;
+import quanlysinhvien.controller.DanhSachHPController;
 import quanlysinhvien.controller.DoiMatKhauController;
+import quanlysinhvien.controller.ThoiKhoaBieuController;
+import quanlysinhvien.controller.ThongTinCaNhanController;
 import quanlysinhvien.model.TaiKhoan;
 import quanlysinhvien.view.PanelBangDiemCaNhanView;
 import quanlysinhvien.view.PanelBangDiemHocPhanView;
 import quanlysinhvien.view.PanelChuongTrinhDaoTaoSVView;
 import quanlysinhvien.view.PanelDangKiHocPhanView;
 import quanlysinhvien.view.PanelDangKiLopHocView;
+import quanlysinhvien.view.PanelDangKiTotNghiepView;
 import quanlysinhvien.view.PanelDanhMucHP;
 import quanlysinhvien.view.PanelDoiMatKhauView;
 import quanlysinhvien.view.PanelHeThongView;
@@ -57,10 +66,8 @@ public class MainSinhVienNC extends JFrame implements ActionListener{
 	private PanelBangDiemHocPhanView bangDiemHP;
 	private PanelBangDiemCaNhanView bangDiemCaNhan;
 	
-	private PanelDangKiHocPhanView dangKyHP;
-	private PanelDangKiLopHocView dangKyLopHoc;
-	
-	
+	private PanelDangKiTotNghiepView dangKyTotNghiep;
+
 	public MainSinhVienNC(TaiKhoan tk) {
 		conter = this.getContentPane();
 		mainPanel = new JPanel();
@@ -70,16 +77,24 @@ public class MainSinhVienNC extends JFrame implements ActionListener{
 		
 		mainPanel.add(doiMatKhau = new PanelDoiMatKhauView(), "doiMatKhau");
 		new DoiMatKhauController(doiMatKhau, tk);
-		mainPanel.add(tkb = new PanelTKBView(), "tkb");
-		
 		mainPanel.add(thongTinCaNhan = new PanelThongTinCaNhanView(), "thongTinCaNhan");
+		new ThongTinCaNhanController(thongTinCaNhan, tk);
+		
+		mainPanel.add(tkb = new PanelTKBView(), "tkb");
+		new ThoiKhoaBieuController(tkb, "quanlysinhvien\\sinhviennienche\\" + tk.getTaiKhoan() + "\\tkb.xlsx");
 		
 		mainPanel.add(danhMucHP = new PanelDanhMucHP(), "danhMucHP");
+		new DanhMucHPController(danhMucHP);
 		mainPanel.add(chuongTrinhDaoTaoSV = new PanelChuongTrinhDaoTaoSVView(), "chuongTrinhDaoTaoSV");
+		new ChuongTrinhDaoTaoSVController(chuongTrinhDaoTaoSV, tk);
 		
 		mainPanel.add(bangDiemCaNhan = new PanelBangDiemCaNhanView(), "bangDiemCaNhan");
+		new BangDiemCaNhanController(bangDiemCaNhan, tk);
 		mainPanel.add(bangDiemHP = new PanelBangDiemHocPhanView(), "bangDiemHP");
+		new BangDiemHocPhanController(bangDiemHP, tk.getTaiKhoan(), "svnc");
 		
+		mainPanel.add(dangKyTotNghiep = new PanelDangKiTotNghiepView(), "DKTN");
+		new DangKiTotNghiepController(dangKyTotNghiep, tk);
 		
 		conter.setLayout(new BorderLayout(0, 0));
 		conter.add(createHeaderPanel(), BorderLayout.NORTH);
@@ -183,7 +198,10 @@ public class MainSinhVienNC extends JFrame implements ActionListener{
 			carLayout.show(mainPanel, "bangDiemHP");
 			return;
 		}
-		
+		if(e.getSource() == miDKTN) {
+			carLayout.show(mainPanel, "DKTN");
+			return;
+		}
 	}
 
 	public static void main(String[] args) {

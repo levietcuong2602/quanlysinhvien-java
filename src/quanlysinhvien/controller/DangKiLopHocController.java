@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -32,7 +31,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import quanlysinhvien.model.DiemHocPhan;
 import quanlysinhvien.model.HocPhan;
 import quanlysinhvien.model.LopHocPhan;
 import quanlysinhvien.model.SinhVien;
@@ -141,7 +139,7 @@ public class DangKiLopHocController {
 			}
 			
 			if(dataSV.get(0).equalsIgnoreCase(idSV)){
-				sinhVien = new SinhVienTinChi(dataSV.get(0), dataSV.get(1), dataSV.get(2), dataSV.get(3), dataSV.get(4), dataSV.get(5), dataSV.get(6), dataSV.get(7), dataSV.get(8), Double.parseDouble(dataSV.get(9)), Integer.parseInt(dataSV.get(10)), Integer.parseInt(dataSV.get(11)));
+				sinhVien = new SinhVienTinChi(dataSV.get(0), dataSV.get(1), dataSV.get(2), dataSV.get(3), dataSV.get(4), dataSV.get(5), dataSV.get(6), dataSV.get(7), dataSV.get(8), Double.parseDouble(dataSV.get(9)), (int) Double.parseDouble(dataSV.get(10)), (int) Double.parseDouble(dataSV.get(11)));
 				return sinhVien;
 			}
 		}
@@ -513,32 +511,16 @@ public class DangKiLopHocController {
 		while (iterator.hasNext()) {
 			row = iterator.next();
 			
-			ArrayList<String> dataHP = new ArrayList<>();
-			Iterator<Cell> itrCell = row.iterator();
-			while(itrCell.hasNext()){
-				Cell cell = itrCell.next();
-				String data = "";
-				switch (cell.getCellType()) {
-				case Cell.CELL_TYPE_STRING:
-					data = cell.getStringCellValue();
-					break;
-				case Cell.CELL_TYPE_NUMERIC:
-					data = Double.toString(cell.getNumericCellValue());
-					break;
-				default:
-					data = "";
-					break;
-				}
-				dataHP.add(data);
-				if(dataHP.size() < 1) return null;
-			}
+			String idHocPhan = row.getCell(1).getStringCellValue();
+			String tenHP = row.getCell(2).getStringCellValue();
+			int soTinChi = (int) row.getCell(3).getNumericCellValue();
+			double soTCHocPhi = row.getCell(4).getNumericCellValue();
+			String idNganh = row.getCell(5).getStringCellValue();
+			double trongSo = row.getCell(6).getNumericCellValue();
+			String ngayDangKyHP = row.getCell(7).getStringCellValue();
 			
-			if(dataHP.size() != 0){	
-				dsHocPhan.add(new HocPhan(dataHP.get(0), dataHP.get(1), Integer.parseInt(dataHP.get(2)), Double.parseDouble(dataHP.get(3)), dataHP.get(4), Double.parseDouble(dataHP.get(5)), dataHP.get(6)));
-			}
-			
-//			HocPhan hocPhan = new HocPhan(idHocPhan, tenHP, soTinChi, soTCHocPhi, idNganh, trongSo, ngayDangKyHP);
-//			dsHocPhan.add(hocPhan);
+			HocPhan hocPhan = new HocPhan(idHocPhan, tenHP, soTinChi, soTCHocPhi, idNganh, trongSo, ngayDangKyHP);
+			dsHocPhan.add(hocPhan);
 		}
 
 		workbook.close();

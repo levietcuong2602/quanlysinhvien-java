@@ -227,40 +227,40 @@ public class DangKiHocPhanController {
 			while (iterator.hasNext()) {
 				row = iterator.next();
 				
-				ArrayList<String> dataHP = new ArrayList<>();
-				Iterator<Cell> itrCell = row.iterator();
-				while(itrCell.hasNext()){
-					Cell cell = itrCell.next();
-					String data = "";
-					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						data = cell.getStringCellValue();
-						break;
-					case Cell.CELL_TYPE_NUMERIC:
-						data = Double.toString(cell.getNumericCellValue());
-						break;
-					default:
-						data = "";
-						break;
-					}
-					dataHP.add(data);
-					if(dataHP.size() < 1) return null;
-				}
-				
-				if(dataHP.size() != 0){	
-					dsHP.add(new HocPhan(dataHP.get(0), dataHP.get(1), Integer.parseInt(dataHP.get(2)), Double.parseDouble(dataHP.get(3)), dataHP.get(4), Double.parseDouble(dataHP.get(5)), dataHP.get(6)));
-				}
-				
-//				String idHocPhan = row.getCell(1).getStringCellValue();
-//				String tenHP = row.getCell(2).getStringCellValue();
-//				int soTinChi = Integer.parseInt(Double.toString(row.getCell(3).getNumericCellValue()));
-//				double soTCHocPhi = row.getCell(4).getNumericCellValue();
-//				String idNganh = row.getCell(5).getStringCellValue();
-//				double trongSo = row.getCell(6).getNumericCellValue();
-//				String ngayDangKyHP = row.getCell(7).getStringCellValue();
+//				ArrayList<String> dataHP = new ArrayList<>();
+//				Iterator<Cell> itrCell = row.iterator();
+//				while(itrCell.hasNext()){
+//					Cell cell = itrCell.next();
+//					String data = "";
+//					switch (cell.getCellType()) {
+//					case Cell.CELL_TYPE_STRING:
+//						data = cell.getStringCellValue();
+//						break;
+//					case Cell.CELL_TYPE_NUMERIC:
+//						data = Double.toString(cell.getNumericCellValue());
+//						break;
+//					default:
+//						data = "";
+//						break;
+//					}
+//					dataHP.add(data);
+//					if(dataHP.size() < 1) return null;
+//				}
 //				
-//				HocPhan hocPhan = new HocPhan(idHocPhan, tenHP, soTinChi, soTCHocPhi, idNganh, trongSo, ngayDangKyHP);
-//				dsHP.add(hocPhan);
+//				if(dataHP.size() != 0){	
+//					dsHP.add(new HocPhan(dataHP.get(0), dataHP.get(1), Integer.parseInt(dataHP.get(2)), Double.parseDouble(dataHP.get(3)), dataHP.get(4), Double.parseDouble(dataHP.get(5)), dataHP.get(6)));
+//				}
+				
+				String idHocPhan = row.getCell(1).getStringCellValue();
+				String tenHP = row.getCell(2).getStringCellValue();
+				int soTinChi = (int) row.getCell(3).getNumericCellValue();
+				double soTCHocPhi = row.getCell(4).getNumericCellValue();
+				String idNganh = row.getCell(5).getStringCellValue();
+				double trongSo = row.getCell(6).getNumericCellValue();
+				String ngayDangKyHP = row.getCell(7).getStringCellValue();
+				
+				HocPhan hocPhan = new HocPhan(idHocPhan, tenHP, soTinChi, soTCHocPhi, idNganh, trongSo, ngayDangKyHP);
+				dsHP.add(hocPhan);
 				
 			}
 			

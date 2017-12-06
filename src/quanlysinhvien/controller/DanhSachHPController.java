@@ -43,11 +43,10 @@ public class DanhSachHPController {
 		fileName = "quanlysinhvien\\danhsachhocphan\\dsHocPhan.xlsx";
 		try {
 			this.dsHocPhan = readFile(fileName);
-			System.out.println("Success readFile.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			dsHocPhan = new ArrayList<>();
-			e.printStackTrace();
+			System.out.println("Error danhSachHP: " + e);
 		}
 		this.table = danhSachHP.getTable();
 		this.btnThem = danhSachHP.getBtnThem();
@@ -294,8 +293,10 @@ public class DanhSachHPController {
 			nextRow = iterator.next();
 			Cell cell = nextRow.getCell(1);
 			String idN = cell.getStringCellValue();
-			if(idN.equals(idNganh))
+			if(idN.equals(idNganh)) {
 				ck = true;
+				break;
+			}
 		}
 		
 		return ck;

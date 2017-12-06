@@ -8,6 +8,8 @@ public class HocPhan {
 	private String idNganh;
 	private double trongSo;
 	
+	
+	
 	public HocPhan() {
 		
 	}
